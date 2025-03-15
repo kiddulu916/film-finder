@@ -31,13 +31,27 @@ const clearCurrentMovie = () => {
 }
 
 // After liking a movie, clears the current movie from the screen and gets another random movie
-const likeMovie = () => {
+const likeMovie = (movieInfo) => {
+    addToLikedMovies(movieInfo);
     clearCurrentMovie();
     showRandomMovie();
 };
 
+const createLikedMovies = (list) => {
+    const movieList = document.createElement('p');
+    movieList.setAttribute('id', 'likedMovieList');
+    movieList.innerHTML = list;
+    return movieList;
+}
+
+const displayLikedMovies = (likedMovies) => {
+    const movieListDiv = document.getElementById('likedMovies');
+    const movieList = createLikedMovies(likedMovies);
+    movieListDiv.appendChild(movieList);
+} 
+
 // After disliking a movie, clears the current movie from the screen and gets another random movie
-const dislikeMovie = () => {
+const dislikeMovie = (movieInfo) => {
     clearCurrentMovie();
     showRandomMovie();
 };
@@ -62,6 +76,14 @@ const createMovieTitle = (title) => {
     return titleHeader;
 };
 
+// Create HTML for release date
+const createReleaseDate = (date) => {
+    const releaseDate = document.createElement('p');
+    releaseDate.setAttribute('id', 'movieReleaseDate');
+    releaseDate.innerHTML = date;
+    return releaseDate;
+};
+
 // Create HTML for movie overview
 const createMovieOverview = (overview) => {
     const overviewParagraph = document.createElement('p');
@@ -71,13 +93,19 @@ const createMovieOverview = (overview) => {
     return overviewParagraph;
 };
 
-// Create HTML for movie release date
-const createMovieReleaseDate = (release_date) => {
-    const releaseDateText = document.createElement('p');
-    releaseDateText.setAttribute('id', 'movieReleaseDate');
-    releaseDateText.innerHTML = release_date;
+// Create HTML for cast list
+const createCast = (castNames) => {
+    const actors = document.createElement('p');
+    actors.setAttribute('id', 'movieCast');
+    actors.innerHTML = castNames;
+    return actors; 
+};
   
-    return releaseDateText;
+  const createRatings = (ratings) => {
+    const ratingSection = document.createElement('p');
+    ratingSection.setAttribute('id', 'ratingSection');
+    ratingSection.innerHTML = ratings;
+    return ratingSection;
 };
 
 // Returns a random movie from the first page of movies
@@ -88,7 +116,7 @@ const getRandomMovie = (movies) => {
 };
 
 // Uses the DOM to create HTML to display the movie
-const displayMovie = (movieInfo) => {
+const displayMovie = (movieInfo, castNames, rating) => {
     const moviePosterDiv = document.getElementById('moviePoster');
     const movieTextDiv = document.getElementById('movieText');
     const likeBtn = document.getElementById('likeBtn');
@@ -97,16 +125,20 @@ const displayMovie = (movieInfo) => {
     // Create HTML content containing movie info
     const moviePoster = createMoviePoster(movieInfo.poster_path);
     const titleHeader = createMovieTitle(movieInfo.title);
+    const releaseDate = createReleaseDate(movieInfo.release_date);
     const overviewText = createMovieOverview(movieInfo.overview);
-    const releaseDate = createMovieReleaseDate(movieInfo.release_date);
-  
+    const castText = createCast(castNames);
+    const ratingText = createRatings(rating);
+
     // Append title, poster, and overview to page
     moviePosterDiv.appendChild(moviePoster);
     movieTextDiv.appendChild(titleHeader);
-    movieTextDiv.appendChild(overviewText);
     movieTextDiv.appendChild(releaseDate);
+    movieTextDiv.appendChild(ratingText);
+    movieTextDiv.appendChild(overviewText);
+    movieTextDiv.appendChild(castText);
   
     showBtns();
-    likeBtn.onclick = likeMovie;
+    likeBtn.onclick = () => { likeMovie(movieInfo.title) };
     dislikeBtn.onclick = dislikeMovie;
 };

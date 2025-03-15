@@ -19,7 +19,7 @@ body {
 }
 
 #movieInfo {
-    width:  65%;
+    width:  80%;
     margin:  32px auto;
 }
 
@@ -34,11 +34,28 @@ body {
     float:  left;
 }
 
+#movieReleaseDate {
+    padding-left: 32px;
+    margin-bottom: 0;
+}
+
+#ratingSection {
+    padding-left: 32px;
+}
+
+#movieCast {
+    font-family: 'Questrial';
+    color: #FEFBEA;
+    line-height: 1.25;
+    padding: 0 32px;
+}
+
 img#moviePoster {
     width:  100%;
     height:  auto;
     display:  block;
     margin:  auto;
+    padding-top: 32px;
 }
 
 #movieText {
@@ -47,8 +64,12 @@ img#moviePoster {
     line-height: 1.25;
 }
 
-#movieTitle, #movieOverview, #movieReleaseDate {
-    padding:  32px;
+#movieTitle {
+    padding: 0 32px;
+}
+
+#movieOverview {
+    padding: 5px 32px 15px;
 }
 
 #playBtn {
@@ -60,6 +81,25 @@ img#moviePoster {
     background-color: #B97828;
     color: #fdc238;
     cursor:  pointer;
+}
+
+#likedMovies {
+    display: flex;
+    font-family: 'Questrial';
+    color: #FEFBEA;
+    align-items: center;
+    padding-right: 20px;
+    flex-wrap: wrap;
+    margin: 50px;
+}
+  
+#likedMovies strong {
+  padding-top: 10px;
+}
+
+#likedMovieList {
+  margin: 0;
+  padding: 10px 0 0 10px;
 }
 
 label {
@@ -75,7 +115,7 @@ select {
 
 #likeOrDislikeBtns {
     text-align: center;
-    margin: 0px auto;  
+    margin: 60px auto 0 auto;
 }
 
 #likeBtn, #dislikeBtn {
